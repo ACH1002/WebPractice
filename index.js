@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const schema = mongoose.Schema
 const bodyParser = require('body-parser')
 const {User} = require("./models/user")
+const config = require('./config/key')
 
 //application/x-www-form-urlencoded 분석 후 가져옴
 app.use(bodyParser.urlencoded({extended: true}))
@@ -13,14 +14,13 @@ app.use(bodyParser.urlencoded({extended: true}))
 //application/json 분석 후 가져옴
 app.use(bodyParser.json())
 
-mongoose.connect('mongodb+srv://anchanho1002:abcd1234@webpractice.5tbhzp2.mongodb.net/?retryWrites=true&w=majority', {
-
-}).then(() => console.log('MongoDB Connected'))
+mongoose.connect(config.mongoURI, {})
+  .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err))
 
 
 
-app.get('/', (req, res) => res.send('Hello World 안녕'))
+app.get('/', (req, res) => res.send('Hello World 안녕하세요'))
 
 
 app.post('/register', async (req, res) => {
@@ -39,4 +39,4 @@ app.post('/register', async (req, res) => {
 })
 
 
-app.listen(port, () => console.log("Example app listening on port ${port}!"))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
