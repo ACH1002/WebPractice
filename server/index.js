@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
 const bodyParser = require('body-parser')
 const {auth} = require('./middleware/auth')
-const {User} = require("./models/User")
+const {User} = require("./models/user")
 const config = require('./config/key')
 const cookieParser = require('cookie-parser')
 
@@ -26,6 +26,12 @@ mongoose.connect(config.mongoURI, {})
 
 
 app.get('/', (req, res) => res.send('Hello World 안녕하세요'))
+
+app.get('/api/hello', (req,res) => {
+
+
+  res.send("안녕하세요 ~")
+})
 
 
 app.post('/api/users/register', async (req, res) => {
